@@ -8,17 +8,96 @@
 /* ===== BODY BACKGROUND ===== */
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 50%, #fce7f3 100%);
+  background: linear-gradient(
+    135deg,
+    #0f172a 0%,
+    #1e1b4b 40%,
+    #312e81 100%
+  );
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: hidden;
 }
+
+/* ===== BUBBLES IN BACKGROUND ===== */
+/* These are the floating glass bubbles behind everything */
+.bubbles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  pointer-events: none; /* so bubbles dont block clicks */
+  z-index: 0;
+}
+
+/* Each bubble is a circle with glass effect */
+.bubble {
+  position: absolute;
+  bottom: -150px; /* start below the screen */
+  border-radius: 50%;
+
+  /* Glass effect on bubble */
+  background: rgba(139, 92, 246, 0.12);
+
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+
+/* UPDATED */
+border: 1px solid rgba(167, 139, 250, 0.25);
+
+/* UPDATED */
+box-shadow:
+  0 0 20px rgba(139, 92, 246, 0.25),
+  inset 0 0 10px rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+filter: drop-shadow(
+  0 0 10px rgba(139, 92, 246, 0.4)
+);
+  /* Floating up animation */
+  animation: floatUp linear infinite;
+}
+
+/* Bubble floats from bottom to top and slightly sways */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1; /* fade in as it appears */
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-110vh) translateX(40px); /* moves up past screen */
+    opacity: 0.8; /* fade out at top */
+  }
+}
+
+/* Each bubble has different size, position, speed, delay */
+.bubble:nth-child(1)  { width: 40px;  height: 40px;  left: 5%;   animation-duration: 8s;  animation-delay: 0s;   }
+.bubble:nth-child(2)  { width: 20px;  height: 20px;  left: 12%;  animation-duration: 12s; animation-delay: 1s;   }
+.bubble:nth-child(3)  { width: 60px;  height: 60px;  left: 20%;  animation-duration: 10s; animation-delay: 2s;   }
+.bubble:nth-child(4)  { width: 25px;  height: 25px;  left: 30%;  animation-duration: 14s; animation-delay: 0.5s; }
+.bubble:nth-child(5)  { width: 80px;  height: 80px;  left: 40%;  animation-duration: 9s;  animation-delay: 3s;   }
+.bubble:nth-child(6)  { width: 15px;  height: 15px;  left: 50%;  animation-duration: 11s; animation-delay: 1.5s; }
+.bubble:nth-child(7)  { width: 50px;  height: 50px;  left: 60%;  animation-duration: 13s; animation-delay: 4s;   }
+.bubble:nth-child(8)  { width: 30px;  height: 30px;  left: 70%;  animation-duration: 7s;  animation-delay: 2.5s; }
+.bubble:nth-child(9)  { width: 70px;  height: 70px;  left: 80%;  animation-duration: 15s; animation-delay: 0s;   }
+.bubble:nth-child(10) { width: 20px;  height: 20px;  left: 90%;  animation-duration: 10s; animation-delay: 3.5s; }
+.bubble:nth-child(11) { width: 45px;  height: 45px;  left: 15%;  animation-duration: 11s; animation-delay: 5s;   }
+.bubble:nth-child(12) { width: 35px;  height: 35px;  left: 55%;  animation-duration: 8s;  animation-delay: 6s;   }
+.bubble:nth-child(13) { width: 55px;  height: 55px;  left: 75%;  animation-duration: 13s; animation-delay: 1s;   }
+.bubble:nth-child(14) { width: 18px;  height: 18px;  left: 35%;  animation-duration: 9s;  animation-delay: 7s;   }
+.bubble:nth-child(15) { width: 90px;  height: 90px;  left: 45%;  animation-duration: 16s; animation-delay: 2s;   }
 
 /* ===== PAGE WRAPPER ===== */
 .app-wrapper {
   position: relative;
-  z-index: 1;
+  z-index: 1; /* sits above bubbles */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,32 +112,33 @@ body {
 }
 
 .form-title {
-  color: #1e3a5f;
+  color: #ffffff;
   font-size: 30px;
   font-weight: 700;
   margin-bottom: 6px;
 }
 
 .form-subtitle {
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.4);
   font-size: 14px;
 }
 
 /* ===== GLASS CARD ===== */
-/* The frosted glass effect box */
 .glass-card {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   padding: 36px;
   width: 100%;
   max-width: 450px;
-  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08); /* subtle top inner glow */
 }
 
-/* ===== INPUT GROUP (label + input + error) ===== */
+/* ===== INPUT GROUP ===== */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -67,40 +147,39 @@ body {
 }
 
 .input-label {
-  color: #374151;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 13px;
   font-weight: 600;
 }
 
-/* ===== GLASS INPUT (used for text, email, select) ===== */
+/* ===== GLASS INPUT ===== */
 .glass-input {
-  background: rgba(255, 255, 255, 0.6);
-  border: 1.5px solid rgba(99, 102, 241, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 12px 16px;
-  color: #1e293b;
+  color: #ffffff;
   font-size: 14px;
   outline: none;
-  transition: border 0.3s, box-shadow 0.3s;
+  transition: border 0.3s, box-shadow 0.3s, background 0.3s;
   width: 100%;
   appearance: none;
 }
 
 .glass-input::placeholder {
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.2);
 }
 
-/* Glow effect when user clicks into input */
 .glass-input:focus {
-  border-color: #818cf8;
-  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
-  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(139, 92, 246, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
 }
 
-/* Dropdown options background */
+/* Dropdown options */
 .glass-input option {
-  background: #ffffff;
-  color: #1e293b;
+  background: #1a1a2e;
+  color: #ffffff;
 }
 
 /* ===== PASSWORD WRAPPER ===== */
@@ -110,57 +189,54 @@ body {
   align-items: center;
 }
 
-/* Extra right padding so text doesnt go under Show/Hide button */
 .password-wrapper .glass-input {
   padding-right: 75px;
 }
 
-/* Show / Hide text button inside the input */
 .show-hide-btn {
   position: absolute;
   right: 12px;
   top: 50%;
-  transform: translateY(-50%);  /* perfectly centers vertically */
+  transform: translateY(-50%);
   background: none;
   border: none;
-  color: #6366f1;
+  color: rgba(139, 92, 246, 0.9);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: color 0.2s;
-  white-space: nowrap;  /* stops text from wrapping */
-  z-index: 2;           /* sits above the input */
+  white-space: nowrap;
+  z-index: 2;
 }
 
 .show-hide-btn:hover {
-  color: #4338ca;
+  color: #a78bfa;
 }
 
 /* ===== ERROR MESSAGE ===== */
 .error-msg {
-  color: #ef4444;
+  color: #f87171;
   font-size: 12px;
 }
 
-/* ===== TOGGLE ROW (Terms & Conditions) ===== */
+/* ===== TOGGLE ROW ===== */
 .toggle-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1.5px solid rgba(99, 102, 241, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 12px 16px;
   margin-bottom: 20px;
 }
 
 .toggle-label {
-  color: #374151;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
 }
 
 /* ===== TOGGLE SWITCH ===== */
-/* We hide the real checkbox and style the span like a switch */
 .switch {
   position: relative;
   display: inline-block;
@@ -168,24 +244,21 @@ body {
   height: 26px;
 }
 
-/* Hide the actual checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The pill shaped background */
 .slider {
   position: absolute;
   cursor: pointer;
   inset: 0;
-  background: #cbd5e1;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 26px;
   transition: 0.3s;
 }
 
-/* The white circle inside the toggle */
 .slider::before {
   content: "";
   position: absolute;
@@ -198,12 +271,10 @@ body {
   transition: 0.3s;
 }
 
-/* When checked - background turns purple */
 .switch input:checked + .slider {
-  background: #6366f1;
+  background: #7c3aed;
 }
 
-/* When checked - circle slides to the right */
 .switch input:checked + .slider::before {
   transform: translateX(20px);
 }
@@ -220,74 +291,78 @@ body {
   margin-top: 4px;
 }
 
-/* Active state - all fields filled */
 .submit-btn:enabled {
-  background: linear-gradient(135deg, #818cf8, #6366f1);
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   color: white;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
 }
 
 .submit-btn:enabled:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+  box-shadow: 0 6px 24px rgba(124, 58, 237, 0.6);
 }
 
-/* Disabled state - fields not filled yet */
 .submit-btn:disabled {
-  background: rgba(0, 0, 0, 0.08);
-  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.25);
   cursor: not-allowed;
 }
 
 /* ===== POPUP OVERLAY ===== */
-/* Dark layer that covers the whole screen behind the popup */
 .popup-overlay {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background:
+rgba(15,23,42,0.75);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999;  /* sits above everything else */
+  z-index: 999;
 }
 
 /* ===== POPUP BOX ===== */
+/* UPDATED POPUP BOX */
 .popup-box {
-  background: white;
+
+  /* UPDATED */
+  background: linear-gradient(
+    135deg,
+    rgba(30, 27, 75, 0.9),
+    rgba(49, 46, 129, 0.9),
+    rgba(91, 33, 182, 0.9)
+  );
+/* UPDATED */
+position: relative;
+overflow: hidden;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+
+  /* UPDATED */
+  border: 1px solid rgba(167, 139, 250, 0.25);
+
   border-radius: 20px;
+
   padding: 40px 36px;
+
   max-width: 360px;
   width: 90%;
+
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  animation: popIn 0.25s ease;  /* small scale animation when it appears */
-}
-/* popIn = animation name, 0.25s = how long it runs, ease = speed curve */
 
-/* @keyframes defines WHAT happens during the animation */
-/* Think of it like: "start state" → "end state" */
+  /* UPDATED */
+  box-shadow:
+    0 0 30px rgba(139, 92, 246, 0.25),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+
+  animation: popIn 0.25s ease;
+}
+
 @keyframes popIn {
-
-  from {
-    /* START - popup is small (85% size) and invisible */
-    transform: scale(0.85);  /* 0.85 = 85% of normal size */
-    opacity: 0;              /* 0 = fully invisible */
-  }
-
-  to {
-    /* END - popup is full size and fully visible */
-    transform: scale(1);     /* 1 = 100% normal size */
-    opacity: 1;              /* 1 = fully visible */
-  }
-
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
 }
-/* So what you SEE is:
-   - Popup starts small + invisible
-   - Over 0.25 seconds it grows to full size + becomes visible
-   - Feels like it "pops" into the screen
-   - If you change 0.25s to 2s you will clearly see it happening slowly */
 
 .popup-icon {
   font-size: 48px;
@@ -295,120 +370,148 @@ body {
 }
 
 .popup-title {
-  color: #1e3a5f;
+
+  /* UPDATED */
+  color: #ffffff;
+
+  text-shadow:
+    0 0 15px rgba(167, 139, 250, 0.5);
+
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 10px;
 }
 
 .popup-msg {
-  color: #64748b;
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 24px;
+
+  /* UPDATED */
+  color: rgba(255,255,255,0.8);
+
+  line-height: 1.7;
 }
 
-/* Users name inside popup shown in purple */
 .popup-msg strong {
-  color: #6366f1;
+
+  /* UPDATED */
+  color: #c084fc;
+
+  text-shadow:
+    0 0 10px rgba(192,132,252,0.7);
 }
 
 .popup-btn {
-  background: linear-gradient(135deg, #818cf8, #6366f1);
+
+  /* UPDATED */
+  background: linear-gradient(
+    135deg,
+    #8b5cf6,
+    #7c3aed,
+    #6d28d9
+  );
+
   color: white;
+
   border: none;
-  border-radius: 12px;
+
+  border-radius: 14px;
+
   padding: 12px 32px;
+
   font-size: 15px;
+
   font-weight: 600;
+
   cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
-}
 
+  /* UPDATED */
+  box-shadow:
+    0 0 20px rgba(139,92,246,0.5),
+    0 4px 20px rgba(124,58,237,0.5);
+
+  transition: all 0.3s ease;
+}
+.popup-box::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: -50%;
+  left: -50%;
+
+  width: 200%;
+  height: 200%;
+
+  background:
+  radial-gradient(
+      circle,
+      rgba(139,92,246,0.12),
+      transparent 70%
+  );
+
+  pointer-events: none;
+}
 .popup-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+
+  transform: translateY(-3px);
+
+  /* UPDATED */
+  box-shadow:
+    0 0 30px rgba(139,92,246,0.8),
+    0 8px 25px rgba(124,58,237,0.7);
 }
-/* ===== RESPONSIVE - for mobile screens ===== */
 
-/* Tablet - screens smaller than 600px */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
-
-  /* Card takes full width with less padding */
   .glass-card {
     padding: 24px 20px;
     border-radius: 18px;
   }
-
-  /* Slightly smaller title */
   .form-title {
     font-size: 24px;
   }
-
   .form-subtitle {
     font-size: 13px;
   }
-
-  /* Inputs a bit smaller */
   .glass-input {
     padding: 11px 14px;
     font-size: 13px;
   }
-
-  /* Label smaller */
   .input-label {
     font-size: 12px;
   }
-
-  /* Submit button smaller */
   .submit-btn {
     padding: 12px;
     font-size: 14px;
   }
-
-  /* Toggle label smaller */
   .toggle-label {
     font-size: 13px;
   }
-
-  /* Popup smaller on mobile */
   .popup-box {
     padding: 28px 22px;
     border-radius: 16px;
   }
-
   .popup-title {
     font-size: 20px;
   }
-
   .popup-msg {
     font-size: 13px;
   }
-
   .popup-btn {
     padding: 11px 24px;
     font-size: 14px;
   }
-
   .popup-icon {
     font-size: 40px;
   }
 }
 
-/* Small mobile - screens smaller than 380px */
 @media (max-width: 380px) {
-
-  /* Even less padding on very small phones */
   .glass-card {
     padding: 20px 14px;
   }
-
   .form-title {
     font-size: 21px;
   }
-
-  /* Toggle row stacks text and switch with less padding */
   .toggle-row {
     padding: 10px 12px;
   }
